@@ -1,0 +1,24 @@
+{% extends "account/base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block content-title %}
+  {% trans "Sign In" %}
+{% endblock %}
+
+{% block content %}
+
+<p>Нет учетной записи<a href="{{ signup_url }}">Зарегистрироваться</a></p>
+
+<form action="{% url 'account_login' %}" class="login" method="POST">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  {% buttons %}
+  {% bootstrap_button "Войти" button_type="submit" button_class="btn-primary" %}
+  {% endbuttons %}
+</form>
+{% endblock content %}

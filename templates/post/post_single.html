@@ -5,4 +5,21 @@
     <img src="{{ MEDIA_URL }}{{ post.image.url }}" width="300" height="300"> <br/>
     {% endif %}{{ post.text }}
 
-{{ post.update }}
+{{ post.update }} <hr>  <br/>
+
+{% if user.is_active %}
+<h4>Комменты</h4>
+{% for com in post.commentpost_set.all %}
+    {{ com.user }}
+    {{ com.text }}<br/>
+{% endfor %}
+
+{% endif %}
+
+<p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Отправить">
+    </form>
+</p>
